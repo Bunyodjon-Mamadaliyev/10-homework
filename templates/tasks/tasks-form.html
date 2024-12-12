@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if tasks %}Update Tasks{% else %}Create Tasks{% endif %}</title>
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300;
+            max-width: 400px;
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 300;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="submit"] {
+            width: 200;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+         }
+        button {
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        button a {
+            text-decoration: none;
+            color: #007bff;
+            display: inline-block;
+            padding: 10px 15px;
+        }
+
+        button a:hover {
+            color: #0056b3;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>{% if tasks %}Update Tasks{% else %}Create Tasks{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="task_title">Task Title</label>
+        <input type="text" name="task_title" id="task_title" value="{{ tasks.task_title }}"><br>
+        <label for="due_date">Due date</label>
+        <input type="date" name="due_date" id="due_date" value="{{ tasks.due_date }}"><br>
+        <label for="description">Description</label>
+        <textarea name="description" id="description" cols="30" rows="10">{{ tasks.description }}</textarea><br>
+        {% if tasks %}
+            <button type="submit">update</button>
+            <button><a href="{{ tasks.get_detail_url }}">Back to Detail</a></button>
+        <br>
+        {% else %}
+            <button type="submit">Create</button>
+            <button><a href="{% url 'tasks:list' %}">Back to List</a></button>
+        <br>
+        {% endif %}
+    </form>
+</body>
+</html>

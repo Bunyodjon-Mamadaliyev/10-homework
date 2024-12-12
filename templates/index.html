@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Home Page</title>
+    {# External style #}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Welcome to the Home Page</h1>
+    <a href="{% url 'notes:list' %}"><h3>Go to Notes List</h3></a>
+    <a href="{% url 'tasks:list' %}"><h3>Go to Tasks List</h3></a>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h3{
+        margin-left: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Tasks List</h1>
+    <button><a href="{% url 'tasks:create' %}">Create Tasks</a></button>
+    <button><a href="{% url 'tasks:home' %}">Back to Home</a></button>
+    {% for task in tasks %}
+    <a href="{{ task.get_detail_url }}">
+    <h3>{{ task.task_title|upper }}</h3>
+    <h3>{{ task.due_date|date:"Y/m/d" }}</h3>
+    <h3>{{ task.description }}</h3>
+    </a>
+    {% empty %}
+        <h3>No Tasks</h3>
+    {% endfor %}
+</body>
+</html>
+
+
